@@ -7,6 +7,15 @@ class StateMachine
 {
     public:
         StateMachine() : curr_state_identifier("none") {}
+
+        /*
+         * action()
+         * debugMessaging()
+         * transition()
+         * switchState() -> perform the transition
+         *     curr->onEnter()
+         *     next->onExit()
+         */
         virtual void run()
         {
             if( curr_state_identify != "none" && curr_state != 0 )
@@ -14,8 +23,8 @@ class StateMachine
                 std::string next_state = "";
 
                 curr_state->action();
-                next_state = curr_state->transition();
                 outputDebugString();
+                next_state = curr_state->transition();
                 switchState( next_state );
             }
         }
