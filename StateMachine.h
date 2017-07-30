@@ -7,7 +7,6 @@ class StateMachine
 {
     public:
         StateMachine() : curr_state_identifier("none") {}
-
         /*
          * action()
          * debugMessaging()
@@ -28,6 +27,14 @@ class StateMachine
                 switchState( next_state );
             }
         }
+        virtual void addState( std::string identifier, State *new_state )
+        {
+            states[ identifier ] = new_state;
+        }
+        std::string getCurrentIdentifier()
+        {
+            return curr_state_identifier;
+        }
     protected:
         virtual void switchState( std::string next_state )
         {
@@ -46,7 +53,7 @@ class StateMachine
     private:
         State 				*curr_state;
         std::string 	 		 curr_state_identifier;
-        std::map<std::string,State> 	 states;
+        std::map<std::string,State*> 	 states;
 
 };
 

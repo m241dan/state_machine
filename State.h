@@ -17,8 +17,8 @@ class State
         virtual std::string 	transition( void ) { return state_identifier; }	//it will always transition to itself by default
         virtual void 		onEnter( std::string prev_state ) {}
         virtual void 		onExit( std::string next_state ) {}
-        virtual std::string 	debugString() { return "" }
-
+        virtual std::string 	debugString() { return ""; }
+        virtual std::string	getIdentifier() { return state_identifier; }
     private:
         std::string state_identifier;
 
