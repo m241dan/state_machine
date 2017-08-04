@@ -19,11 +19,11 @@ class HighState : public State
 
         virtual void action()
         {
-            internal_state.run();
+            internal_machine.run();
         }
 
     private:
-        StateMachine internal_state;
+        StateMachine internal_machine;
 };
 
 
