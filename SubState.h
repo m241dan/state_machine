@@ -11,7 +11,9 @@
 class SubState : State
 {
     public:
-        SubState( std::string si "substate" ) : state_identifier(si) {}
+        SubState( HighState *owner, std::string si "substate" ) : owner_state(owner), state_identifier(si) {}
+    protected:
+        HighState *owner_state;
 };
 
 #endif
