@@ -10,12 +10,14 @@ class TimedQueueState : public State
         /*
          * Either onEnter or onExit should most likely reset any events remaining
          * in the queue. Events should be initialized with an offset based on a
-         * current time.
+         * current time. If I decide not to do this, delete these two methods.
          */
         virtual void onEnter( std::string prev_state ) {}
         virtual void onExit( std::string next_state ) {}
         /*
-         * should likely transition out if its queue is empty
+         * Should possibly transition out if its queue is empty, but what to?
+         * The state that called it?
+         * If I decide to not do this, delete this method.
          */
         virtual std::transition( void ) { return state_identifier; }
         /*
