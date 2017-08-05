@@ -6,7 +6,10 @@
 class TimedQueueSubState : public TimedQueueState
 {
     public:
-        TimedQueueSubState( std::string id "timed queue substate", unsigned long long &t ) : TimedQueueState( id, t ) {}
+        TimedQueueSubState( HighState *owner, std::string id "timed queue substate", unsigned long long &t ) :
+            owner_state(state), TimedQueueState( id, t ) {}
+    protected:
+        HighState *owner_state;
 };
 
 #endif
