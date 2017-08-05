@@ -27,6 +27,12 @@ class StateMachine
                 transitionTo( next_state );
             }
         }
+        /*
+         * Could possible add a check to make sure two states don't have the same identifier.
+         * Or, have it automatically overwrite and dequeue/delete the state that used to share
+         * the same identifier.
+         * Which is safer? Functional perspective? Memory management perspecftive?
+         */
         virtual void addState( std::string identifier, State *new_state )
         {
             states[ identifier ] = new_state;
