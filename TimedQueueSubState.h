@@ -5,7 +5,8 @@
 
 class TimedQueueSubState : public TimedQueueState
 {
-
+    public:
+        TimedQueueSubState( std::string id "timed queue substate", unsigned long long &t ) : TimedQueueState( id, t ) {}
 };
 
 #endif

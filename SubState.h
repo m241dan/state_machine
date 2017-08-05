@@ -10,7 +10,8 @@
 
 class SubState : State
 {
-
+    public:
+        SubState( std::string si "substate" ) : state_identifier(si) {}
 };
 
 #endif
