@@ -14,6 +14,7 @@
 class HighState : public State
 {
     friend SubState;
+    friend TimedQueueSubState;
     public:
         HighState( std::string id = "high state abstract" ) : State( id ) {}
 
@@ -25,6 +26,5 @@ class HighState : public State
     private:
         StateMachine internal_machine;
 };
-
 
 #endif

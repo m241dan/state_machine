@@ -11,7 +11,7 @@ class StateMachine
          * action()
          * debugMessaging()
          * transition()
-         * switchState() -> perform the transition
+         * transitionTo() -> perform the transition
          *     curr->onEnter()
          *     next->onExit()
          */
@@ -24,7 +24,7 @@ class StateMachine
                 curr_state->action();
                 outputDebugString();
                 next_state = curr_state->transition();
-                switchState( next_state );
+                transitionTo( next_state );
             }
         }
         virtual void addState( std::string identifier, State *new_state )
@@ -36,7 +36,7 @@ class StateMachine
             return curr_state_identifier;
         }
     protected:
-        virtual void switchState( std::string next_state )
+        virtual void transitionTo( std::string next_state )
         {
             if( curr_state_identifier != next_state && states[ next_state ] )
             {
