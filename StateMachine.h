@@ -37,6 +37,7 @@ class StateMachine
         {
             states[ identifier ] = new_state;
         }
+
         std::string getCurrentIdentifier()
         {
             return curr_state_identifier;
