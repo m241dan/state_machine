@@ -1,6 +1,8 @@
 #ifndef statemachine_h
 #define statemachine_h
 
+#include <iostream>
+#include <map>
 #include "State.h"
 
 class StateMachine
@@ -17,7 +19,7 @@ class StateMachine
          */
         virtual void run()
         {
-            if( curr_state_identify != "none" && curr_state != 0 )
+            if( getCurrentIdentifier() != "none" && curr_state != 0 )
             {
                 std::string next_state = "";
 
@@ -36,6 +38,11 @@ class StateMachine
         virtual void addState( std::string identifier, State *new_state )
         {
             states[ identifier ] = new_state;
+            if( getCurrentIdentifier() == "none" )
+            {
+               curr_state = new_state;
+               curr_state_identifier = new_state->getIdentifier();
+            }
         }
 
         std::string getCurrentIdentifier()

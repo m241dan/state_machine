@@ -8,6 +8,8 @@
  * Written by Daniel R. Koris                                            *
  *************************************************************************/
 
+#include <iostream>
+
 class State
 {
     public:
