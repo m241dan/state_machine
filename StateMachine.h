@@ -5,10 +5,14 @@
 #include <map>
 #include "State.h"
 
+//need to add inputs and outputs to states...
+//mayhaps state machine will hold the physical stuff and any state added will
+//get a reference to them?
+
 class StateMachine
 {
     public:
-        StateMachine() : curr_state_identifier("none") {}
+        StateMachine() : curr_state_identifier("*_none_*") {}
         /*
          * action()
          * debugMessaging()
@@ -19,7 +23,7 @@ class StateMachine
          */
         virtual void run()
         {
-            if( getCurrentIdentifier() != "none" && curr_state != 0 )
+            if( getCurrentIdentifier() != "*_none_*" && curr_state != 0 )
             {
                 std::string next_state = "";
 
@@ -38,9 +42,10 @@ class StateMachine
         virtual void addState( std::string identifier, State *new_state )
         {
             states[ identifier ] = new_state;
-            if( getCurrentIdentifier() == "none" )
+            if( getCurrentIdentifier() == "*_none_*" )
             {
                curr_state = new_state;
+               curr_state->onEnter( curr_state_identifier );
                curr_state_identifier = new_state->getIdentifier();
             }
         }
@@ -52,12 +57,19 @@ class StateMachine
     protected:
         virtual void transitionTo( std::string next_state )
         {
-            if( curr_state_identifier != next_state && states[ next_state ] )
+            if( curr_state_identifier != next_state )
             {
-                curr_state->onExit( next_state );
-                curr_state = states[ next_state ];
-                curr_state->onEnter( curr_state_identifier );
-                curr_state_identifier = next_state;
+                if( states[ next_state ] )
+                {
+                    curr_state->onExit( next_state );
+                    curr_state = states[ next_state ];
+                    curr_state->onEnter( curr_state_identifier );
+                    curr_state_identifier = next_state;
+                }
+                else
+                {
+                    std::cout << "StateMachine:TransitionError: Attemping to transition to state '" << next_state << "' but state map does not contain '" << next_state << ".'" << std::endl;
+                }
             }
         }
         virtual void outputDebugString()
