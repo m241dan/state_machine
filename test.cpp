@@ -1,5 +1,11 @@
 #include "StateMachine.h"
 
+class BadState : public State
+{
+    public:
+        BadState() : State( INVALID_STATE_NAME ) {}
+};
+
 class TestState : public State
 {
     public:
@@ -61,9 +67,14 @@ int main()
     StateMachine machine;
     TestState test;
     TestStateTwo test_two;
+    BadState bad_state;
+    State state;
 
     machine.addState( test.getIdentifier(), (State *)&test );
     machine.addState( test_two.getIdentifier(), (State *)&test_two );
+    machine.addState( bad_state.getIdentifier(), (State *)&bad_state );
+    machine.addState( state.getIdentifier(), &state );
+
     while( 1 )
     {
         machine.run();

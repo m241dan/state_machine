@@ -9,11 +9,20 @@
  *************************************************************************/
 
 #include <iostream>
+#include "Error.h"
+#include "Globals.h"
 
 class State
 {
     public:
-        State( std::string si = "abstract" ) : state_identifier(si) {}
+        State( std::string si = "abstract" ) : state_identifier(si)
+        {
+            if( si == "abstract" )
+                errorMsg( __func__, "created an instance of an abstract state." );
+            if( si == INVALID_STATE_NAME )
+                errorMsg( __func__, "created a state with an invalid state name." );
+        }
+
         //virtual functions
         virtual void 		action( void ) {}
         virtual std::string 	transition( void ) { return state_identifier; }	//it will always transition to itself by default
@@ -21,7 +30,9 @@ class State
         virtual void 		onExit( std::string next_state ) {}
         virtual std::string 	debugString() { return ""; }
         virtual std::string	getIdentifier() { return state_identifier; }
+
     private:
+        bool valid_state;
         std::string state_identifier;
 
 };

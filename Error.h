@@ -3,7 +3,7 @@
 
 void errorMsg( std::string func, std::string msg )
 {
-    std::cout << func << ": " << msg << std::endl;
+    std::cout << "Function::" << func << ": " << msg << std::endl;
 }
 
 #endif
