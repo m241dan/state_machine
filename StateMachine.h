@@ -55,7 +55,7 @@ class StateMachine
                 errorMsg( __func__, "Cannot add abstract states." );
                 return false;
             }
-            states[ identifier ] = new_state;
+            states.insert( std::pair<std::string,State*>( identifier, new_state ) );
             if( getCurrentIdentifier() == INVALID_STATE_NAME )
             {
                curr_state = new_state;
@@ -75,7 +75,7 @@ class StateMachine
         {
             if( curr_state_identifier != next_state )
             {
-                if( states[ next_state ] )
+                if( states.find( next_state ) != states.end() )
                 {
                     curr_state->onExit( next_state );
                     curr_state = states[ next_state ];
