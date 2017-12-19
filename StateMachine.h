@@ -6,6 +6,7 @@
 #include "State.h"
 #include "Error.h"
 #include "Globals.h"
+#include "IOTable.h"
 
 //need to add inputs and outputs to states...
 //mayhaps state machine will hold the physical stuff and any state added will
@@ -96,7 +97,6 @@ class StateMachine
         State 				*curr_state;
         std::string 	 		 curr_state_identifier;
         std::map<std::string,State*> 	 states;
-
 };
 
 #endif
