@@ -3,39 +3,55 @@
 
 #include "Globals.h"
 
+typedef struct validator
+{
+   const IOTYPE type;
+   const size_t size;
+   const char checksum;
+} VALIDATOR;
+
+VALIDATOR ioint_validator = { IO_INT, sizeof( int ), INT_SUM };
+VALIDATOR ioflt_validator = { IO_FLT, sizeof( float ), FLT_SUM };
+
 class IOType
 {
     public:
-       IOType( IOTYPE t, char c, size_t s ) : type(t), checksum(c), size(s) {}
-
-       IOTYPE getType() { return type; }
-       size_t getSize() { return size; }
-       char getCheckSum() { return validating_checksum; }
-       template <class T>
-       bool validate()
-       {
-       }
-
-    private:
-       IOTYPE type;
-       size_t size;
-       char checksum;
+       IOType( IOTYPE t, char c, size_t s ) : type(t), validating_checksum(c), size(s) {}
+       const IOTYPE type;
+       const size_t size;
+       const char validating_checksum;
 };
 
+/*
+ * Wrapper Examples
+ */
 class IOInt : public IOType
 {
     public:
         IOInt( int v ) : IOType( IO_INT, INT_SUM, sizeof( int ) ), data(v) {}
         int data;
-        static const char checksum = INT_SUM;
 };
 
 class IOFloat : public IOType
 {
     public:
-        IOFloat( float v ) : IOType( IO_FLOAT, FLT_SUM, sizeof( float ) ), data(v) {}
+        IOFloat( float v ) : IOType( IO_FLT, FLT_SUM, sizeof( float ) ), data(v) {}
         float data;
-        static const char checksum = FLT_SUM;
 };
+
+/*
+ * Validator Function
+ */
+bool is_io_valid( const IOType *to_test, VALIDATOR params ) {
+    bool valid = false;
+
+    if( to_test->type == params.type &&
+        to_test->size == params.size &&
+        to_test->validating_checksum == params.checksum )
+        valid = true;
+
+    return valid;
+}
+
 
 #endif

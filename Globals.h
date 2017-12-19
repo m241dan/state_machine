@@ -5,7 +5,7 @@ const std::string INVALID_STATE_NAME = "*_name_*";
 
 typedef enum
 {
-   IO_INT, IO_FLOAT
+   IO_INT, IO_FLT
 } IOTYPE;
 
 #define INT_SUM 'i'
