@@ -8,33 +8,29 @@
 #include "Globals.h"
 #include "IOTable.h"
 
-//need to add inputs and outputs to states...
-//mayhaps state machine will hold the physical stuff and any state added will
-//get a reference to them?
-
 class StateMachine
 {
     public:
         StateMachine() : curr_state_identifier(INVALID_STATE_NAME) {}
         /*
-         * action()
-         * debugMessaging()
-         * transition()
-         * transitionTo() -> perform the transition
-         *     curr->onEnter()
-         *     next->onExit()
+         * 1.) action()
+         * 2.) debugMessaging()
+         * 3.) transition()
+         * 4.) transitionTo() -> perform the transition
+         *         curr->onEnter()
+         *         next->onExit()
          */
 
         virtual void run()
         {
             if( getCurrentIdentifier() != INVALID_STATE_NAME && curr_state != 0 )
             {
-                std::string next_state = "";
+                std::string next_state = INVALID_STATE_NAME;	//assume nothing
 
-                curr_state->action();
-                outputDebugString();
-                next_state = curr_state->transition();
-                transitionTo( next_state );
+                curr_state->action();				//1
+                outputDebugString();				//2
+                next_state = curr_state->transition();		//3
+                transitionTo( next_state );			//4
             }
         }
 
@@ -46,25 +42,60 @@ class StateMachine
          */
         virtual bool addState( std::string identifier, State *new_state )
         {
+            bool success = false;
+
             if( new_state->getIdentifier() == INVALID_STATE_NAME )
             {
                 errorMsg( __func__, "Bad State Name: '" + INVALID_STATE_NAME + "'" );
-                return false;
             }
             else if( new_state->getIdentifier() == "abstract" )
             {
                 errorMsg( __func__, "Cannot add abstract states." );
-                return false;
             }
+
             states.insert( std::pair<std::string,State*>( identifier, new_state ) );
+            success = true;
+
             if( getCurrentIdentifier() == INVALID_STATE_NAME )
             {
                curr_state = new_state;
                curr_state->onEnter( curr_state_identifier );
                curr_state_identifier = new_state->getIdentifier();
             }
-            return true;
+            return success;
         }
+
+        virtual bool addInput( std::string key, IOType *input )
+        {
+            bool success = false;
+
+            if( inputs.find( key ) != inputs.end() )
+            {
+                inputs.insert( std::pair<std::string,IOType*>( key, input ) );
+                success = true;
+            }
+            else
+            {
+                errorMsg( __func__, "an element in inputs already exists at the key: " + key );
+            }
+            return success;
+        }
+
+        const IOType *getOutput( std::string key )
+        {
+            IOType *output_to_return = 0;
+
+            if( outputs.find( key ) != outputs.end() )
+            {
+                output_to_return = outputs[key];
+            }
+            else
+            {
+                errorMsg( __func__, "an element in outputs does not exist." );
+            }
+            return output_to_return;
+        }
+
 
         std::string getCurrentIdentifier()
         {
@@ -76,7 +107,11 @@ class StateMachine
         {
             if( curr_state_identifier != next_state )
             {
-                if( states.find( next_state ) != states.end() )
+                if( next_state == INVALID_STATE_NAME )
+                {
+                    errorMsg( __func__, "TransitionError: Attemping to transition to INVALID_STATE_NAME." );
+                }
+                else if( states.find( next_state ) != states.end() ) /*successful transition here */
                 {
                     curr_state->onExit( next_state );
                     curr_state = states[ next_state ];
@@ -85,7 +120,7 @@ class StateMachine
                 }
                 else
                 {
-                    errorMsg( __func__, "StateMachine:TransitionError: Attemping to transition to state '" + next_state + "' but state map does not contain '" + next_state + ".'" );
+                    errorMsg( __func__, "TransitionError: Attemping to transition to state '" + next_state + "' but state map does not contain '" + next_state + ".'" );
                 }
             }
         }
@@ -97,6 +132,9 @@ class StateMachine
         State 				*curr_state;
         std::string 	 		 curr_state_identifier;
         std::map<std::string,State*> 	 states;
+
+        std::map<std::string,IOType*>	 inputs;
+        std::map<std::string,IOType*>	 outputs;
 };
 
 #endif
