@@ -11,6 +11,9 @@
 #include <iostream>
 #include "Error.h"
 #include "Globals.h"
+#include "IOTable.h"
+
+class StateMachine; //a little forward declaration to handle order of include problems
 
 class State
 {
@@ -30,7 +33,23 @@ class State
         virtual void 		onExit( std::string next_state ) {}
         virtual std::string 	debugString() { return ""; }
         virtual std::string	getIdentifier() { return state_identifier; }
+        virtual bool		setOwner( StateMachine *sm )
+        {
+            bool success = false;
 
+            if( !owner )
+            {
+                owner = sm;
+                success = true;
+            }
+            return success;
+        }
+
+        IOTable &getInputs();
+        IOTable &getOutputs();
+
+    protected:
+        StateMachine *owner;
     private:
         bool valid_state;
         std::string state_identifier;

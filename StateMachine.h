@@ -54,6 +54,7 @@ class StateMachine
             }
 
             states.insert( std::pair<std::string,State*>( identifier, new_state ) );
+            new_state->setOwner( this );
             success = true;
 
             if( getCurrentIdentifier() == INVALID_STATE_NAME )
@@ -69,15 +70,8 @@ class StateMachine
         {
             bool success = false;
 
-            if( inputs.find( key ) != inputs.end() )
-            {
-                inputs.insert( std::pair<std::string,IOType*>( key, input ) );
+            if( inputs.addElement( key, input ) )
                 success = true;
-            }
-            else
-            {
-                errorMsg( __func__, "an element in inputs already exists at the key: " + key );
-            }
             return success;
         }
 
@@ -85,14 +79,8 @@ class StateMachine
         {
             IOType *output_to_return = 0;
 
-            if( outputs.find( key ) != outputs.end() )
-            {
-                output_to_return = outputs[key];
-            }
-            else
-            {
-                errorMsg( __func__, "an element in outputs does not exist." );
-            }
+            output_to_return = outputs.getOutput( key );
+
             return output_to_return;
         }
 
@@ -101,6 +89,8 @@ class StateMachine
         {
             return curr_state_identifier;
         }
+        friend IOTable &State::getInputs();
+        friend IOTable &State::getOutputs();
 
     protected:
         virtual void transitionTo( std::string next_state )
@@ -133,8 +123,12 @@ class StateMachine
         std::string 	 		 curr_state_identifier;
         std::map<std::string,State*> 	 states;
 
-        std::map<std::string,IOType*>	 inputs;
-        std::map<std::string,IOType*>	 outputs;
+        InputTable			 inputs;
+        OutputTable			 outputs;
 };
+
+IOTable &State::getInputs() { return owner->inputs; }
+IOTable &State::getOutputs() { return owner->outputs; }
+
 
 #endif

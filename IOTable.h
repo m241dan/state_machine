@@ -42,23 +42,23 @@ class InputTable : public IOTable
         InputTable() : IOTable( INPUT_TABLE ) {}
         const IOType *getInput( std::string input_key )
         {
+            IOType *input = 0;
+
             if( table.find( input_key ) != table.end() )
-                return (const IOType *)table[ input_key ];
-            else
-                return 0;
+                input = table[ input_key ];
+            return input;
         }
 };
-
 class OutputTable : public IOTable
 {
     public:
         OutputTable() : IOTable( OUTPUT_TABLE ) {}
         IOType *getOutput( std::string output_key )
         {
+            IOType *output = 0;
             if( table.find( output_key ) != table.end() )
-                return table[ output_key ];
-            else
-                return 0;
+                output = table[ output_key ];
+            return output;
         }
 };
 
