@@ -30,36 +30,17 @@ class IOTable
             }
             return success;
         }
-    protected:
-        std::map<std::string,IOType*> table;
-    private:
-        IOTABLE_TYPE type;
-};
-
-class InputTable : public IOTable
-{
-    public:
-        InputTable() : IOTable( INPUT_TABLE ) {}
-        const IOType *getInput( std::string input_key )
+        IOType *getIO( std::string input_key )
         {
-            IOType *input = 0;
+            IOType *io = 0;
 
             if( table.find( input_key ) != table.end() )
-                input = table[ input_key ];
+                io = table[ input_key ];
             return input;
         }
-};
-class OutputTable : public IOTable
-{
-    public:
-        OutputTable() : IOTable( OUTPUT_TABLE ) {}
-        IOType *getOutput( std::string output_key )
-        {
-            IOType *output = 0;
-            if( table.find( output_key ) != table.end() )
-                output = table[ output_key ];
-            return output;
-        }
+    private:
+        IOTABLE_TYPE type;
+        std::map<std::string,IOType*> table;
 };
 
 #endif

@@ -11,7 +11,9 @@
 class StateMachine
 {
     public:
-        StateMachine() : curr_state_identifier(INVALID_STATE_NAME) {}
+        StateMachine() : curr_state_identifier(INVALID_STATE_NAME),
+                         inputs(IOTable( INPUT_TABLE )),
+                         outputs(IOTable( OUTPUT_TABLE )) {}
         /*
          * 1.) action()
          * 2.) debugMessaging()
@@ -75,7 +77,7 @@ class StateMachine
             return success;
         }
 
-        const IOType *getOutput( std::string key )
+        IOType *getOutput( std::string key )
         {
             IOType *output_to_return = 0;
 
@@ -123,8 +125,8 @@ class StateMachine
         std::string 	 		 curr_state_identifier;
         std::map<std::string,State*> 	 states;
 
-        InputTable			 inputs;
-        OutputTable			 outputs;
+        IOTable				 inputs;
+        IOTable				 outputs;
 };
 
 IOTable &State::getInputs() { return owner->inputs; }
