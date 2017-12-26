@@ -36,7 +36,7 @@ class IOTable
 
             if( table.find( input_key ) != table.end() )
                 io = table[ input_key ];
-            return input;
+            return io;
         }
     private:
         IOTABLE_TYPE type;
