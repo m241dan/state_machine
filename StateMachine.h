@@ -81,7 +81,7 @@ class StateMachine
         {
             IOType *output_to_return = 0;
 
-            output_to_return = outputs.getOutput( key );
+            output_to_return = outputs.getIO( key );
 
             return output_to_return;
         }
