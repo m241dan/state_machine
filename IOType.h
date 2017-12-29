@@ -5,19 +5,19 @@
 
 typedef struct validator
 {
-   const IOTYPE type;
+   const int type;
    const size_t size;
    const char checksum;
 } VALIDATOR;
 
-VALIDATOR ioint_validator = { IO_INT, sizeof( int ), INT_SUM };
-VALIDATOR ioflt_validator = { IO_FLT, sizeof( float ), FLT_SUM };
+VALIDATOR ioint_validator = { IOTYPE.INT, sizeof( int ), SUM.INT };
+VALIDATOR ioflt_validator = { IOTYPE.FLT, sizeof( float ), SUM.FLT };
 
 class IOType
 {
     public:
-       IOType( IOTYPE t, char c, size_t s ) : type(t), validating_checksum(c), size(s) {}
-       const IOTYPE type;
+       IOType( const int t, const char c, const size_t s ) : type(t), validating_checksum(c), size(s) {}
+       const int type;
        const size_t size;
        const char validating_checksum;
 };
@@ -28,14 +28,14 @@ class IOType
 class IOInt : public IOType
 {
     public:
-        IOInt( int v ) : IOType( IO_INT, INT_SUM, sizeof( int ) ), data(v) {}
+        IOInt( int v ) : IOType( IOTYPE.INT, SUM.INT, sizeof( int ) ), data(v) {}
         int data;
 };
 
 class IOFloat : public IOType
 {
     public:
-        IOFloat( float v ) : IOType( IO_FLT, FLT_SUM, sizeof( float ) ), data(v) {}
+        IOFloat( float v ) : IOType( IOTYPE.FLT, SUM.FLT, sizeof( float ) ), data(v) {}
         float data;
 };
 
