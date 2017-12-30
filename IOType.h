@@ -32,10 +32,17 @@ class IOInt : public IOType
         int data;
 };
 
-class IOFloat : public IOType
+class InputFloat : public IOType
 {
     public:
-        IOFloat( float v ) : IOType( IOTYPE.FLT, SUM.FLT, sizeof( float ) ), data(v) {}
+        InputFloat( float v ) : IOType( IOTYPE.FLT, SUM.FLT, sizeof( float ) ), data(v) {}
+        const float data;
+};
+
+class OutputFloat : public IOType
+{
+    public:
+        OutputFloat( float v ) : IOType( IOTYPE.FLT, SUM.FLT, sizeof( float ) ), data(v) {}
         float data;
 };
 
