@@ -10,6 +10,7 @@
 
 class StateMachine
 {
+    friend class State;
     public:
         StateMachine() : curr_state_identifier(INVALID_STATE_NAME),
                          inputs(IOTable( INPUT_TABLE )),
@@ -91,8 +92,6 @@ class StateMachine
         {
             return curr_state_identifier;
         }
-        friend IOTable &State::getInputs();
-        friend IOTable &State::getOutputs();
 
     protected:
         virtual void transitionTo( std::string next_state )
@@ -128,9 +127,5 @@ class StateMachine
         IOTable				 inputs;
         IOTable				 outputs;
 };
-
-IOTable &State::getInputs() { return owner->inputs; }
-IOTable &State::getOutputs() { return owner->outputs; }
-
 
 #endif
