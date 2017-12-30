@@ -26,7 +26,7 @@ class IOTable
             }
             else
             {
-                errorMsg( __func__, "An element already exists at the key: " + key );
+                messaging::errorMsg( __func__, "An element already exists at the key: " + key );
             }
             return success;
         }

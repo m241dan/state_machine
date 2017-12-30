@@ -21,9 +21,9 @@ class State
         State( std::string si = "abstract" ) : state_identifier(si)
         {
             if( si == "abstract" )
-                errorMsg( __func__, "created an instance of an abstract state." );
+                messaging::errorMsg( __func__, "created an instance of an abstract state." );
             if( si == INVALID_STATE_NAME )
-                errorMsg( __func__, "created a state with an invalid state name." );
+                messaging::errorMsg( __func__, "created a state with an invalid state name." );
         }
 
         //virtual functions

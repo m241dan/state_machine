@@ -3,9 +3,13 @@
 
 #include <iostream>
 
-void errorMsg( std::string func, std::string msg )
+namespace messaging
 {
-    std::cout << "Function::" << func << ": " << msg << std::endl;
-}
+
+    void errorMsg( std::string func, std::string msg )
+    {
+        std::cout << "Function::" << func << ": " << msg << std::endl;
+    }
+};
 
 #endif

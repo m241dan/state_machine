@@ -49,11 +49,11 @@ class StateMachine
 
             if( new_state->getIdentifier() == INVALID_STATE_NAME )
             {
-                errorMsg( __func__, "Bad State Name: '" + INVALID_STATE_NAME + "'" );
+                messaging::errorMsg( __func__, "Bad State Name: '" + INVALID_STATE_NAME + "'" );
             }
             else if( new_state->getIdentifier() == "abstract" )
             {
-                errorMsg( __func__, "Cannot add abstract states." );
+                messaging::errorMsg( __func__, "Cannot add abstract states." );
             }
 
             states.insert( std::pair<std::string,State*>( identifier, new_state ) );
@@ -100,7 +100,7 @@ class StateMachine
             {
                 if( next_state == INVALID_STATE_NAME )
                 {
-                    errorMsg( __func__, "TransitionError: Attemping to transition to INVALID_STATE_NAME." );
+                    messaging::errorMsg( __func__, "TransitionError: Attemping to transition to INVALID_STATE_NAME." );
                 }
                 else if( states.find( next_state ) != states.end() ) /*successful transition here */
                 {
@@ -111,7 +111,7 @@ class StateMachine
                 }
                 else
                 {
-                    errorMsg( __func__, "TransitionError: Attemping to transition to state '" + next_state + "' but state map does not contain '" + next_state + ".'" );
+                    messaging::errorMsg( __func__, "TransitionError: Attemping to transition to state '" + next_state + "' but state map does not contain '" + next_state + ".'" );
                 }
             }
         }
