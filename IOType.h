@@ -25,22 +25,19 @@ class IOType
 class IOInt : public IOType
 {
     public:
-        IOInt( int v ) : IOType( IOTYPE_INT, SUM_INT, sizeof( int ) ), data(v) {}
-        int data;
+        IOInt( int *v ) : IOType( IOTYPE_INT, SUM_INT, sizeof( int ) ), data(v) {}
+        int getValue() { return *data; }
+    private:
+        int *data;
 };
 
 class InputFloat : public IOType
 {
     public:
-        InputFloat( float v ) : IOType( IOTYPE_FLT, SUM_FLT, sizeof( float ) ), data(v) {}
-        const float data;
-};
-
-class OutputFloat : public IOType
-{
-    public:
-        OutputFloat( float v ) : IOType( IOTYPE_FLT, SUM_FLT, sizeof( float ) ), data(v) {}
-        float data;
+        InputFloat( float *v ) : IOType( IOTYPE_FLT, SUM_FLT, sizeof( float ) ), data(v) {}
+        float getValue() { return *data; }
+    private:
+        float *data;
 };
 
 /*
