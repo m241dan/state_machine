@@ -119,13 +119,13 @@ class StateMachine
         {
             std::cout << curr_state->debugString() << std::endl;
         }
+        IOTable				 inputs;
+        IOTable				 outputs;
+
     private:
         State 				*curr_state;
         std::string 	 		 curr_state_identifier;
         std::map<std::string,State*> 	 states;
-
-        IOTable				 inputs;
-        IOTable				 outputs;
 };
 
 #endif
