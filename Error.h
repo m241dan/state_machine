@@ -5,7 +5,7 @@
 
 namespace messaging
 {
-    void errorMsg;
+    void errorMsg( std::string func, std::string msg );
 };
 
 #endif
