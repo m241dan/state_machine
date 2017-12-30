@@ -10,9 +10,6 @@ typedef struct validator
    const char checksum;
 } VALIDATOR;
 
-VALIDATOR ioint_validator = { IOTYPE_INT, sizeof( int ), SUM_INT };
-VALIDATOR ioflt_validator = { IOTYPE_FLT, sizeof( float ), SUM_FLT };
-
 class IOType
 {
     public:
@@ -49,16 +46,10 @@ class OutputFloat : public IOType
 /*
  * Validator Function
  */
-bool is_io_valid( const IOType *to_test, VALIDATOR params ) {
-    bool valid = false;
 
-    if( to_test->type == params.type &&
-        to_test->size == params.size &&
-        to_test->validating_checksum == params.checksum )
-        valid = true;
+extern VALIDATOR ioint_validator;
+extern VALIDATOR ioflt_validator;
 
-    return valid;
-}
-
+bool is_io_valid( const IOType *to_test, VALIDATOR params );
 
 #endif
