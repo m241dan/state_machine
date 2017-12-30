@@ -31,10 +31,10 @@ class IOInt : public IOType
         int *data;
 };
 
-class InputFloat : public IOType
+class IOFloat : public IOType
 {
     public:
-        InputFloat( float *v ) : IOType( IOTYPE_FLT, SUM_FLT, sizeof( float ) ), data(v) {}
+        IOFloat( float *v ) : IOType( IOTYPE_FLT, SUM_FLT, sizeof( float ) ), data(v) {}
         float getValue() { return *data; }
     private:
         float *data;
