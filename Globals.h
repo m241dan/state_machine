@@ -3,18 +3,12 @@
 
 const std::string INVALID_STATE_NAME = "*_name_*";
 
-class IOTYPES
+enum
 {
-    public:
-        const int INT = 0;
-        const int FLT = 1;
-} IOTYPE;
+    IOTYPE_INT, IOTYPE_FLT
+}
 
-class SUMS
-{
-    public:
-        const char INT = 'i';
-        const char FLT = 'f';
-} SUM;
+#define SUM_INT 'i'
+#define SUM_FLT 'f'
 
 #endif
