@@ -24,6 +24,7 @@ class State
                 messaging::errorMsg( __func__, "created an instance of an abstract state." );
             if( si == INVALID_STATE_NAME )
                 messaging::errorMsg( __func__, "created a state with an invalid state name." );
+            owner = 0;
         }
 
         //virtual functions
