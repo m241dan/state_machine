@@ -29,11 +29,10 @@ class StateMachine
             if( getCurrentIdentifier() != INVALID_STATE_NAME && curr_state != 0 )
             {
                 std::string next_state = INVALID_STATE_NAME;	//assume nothing
-
-                curr_state->action();				//1
-                outputDebugString();				//2
-                next_state = curr_state->transition();		//3
-                transitionTo( next_state );			//4
+                next_state = curr_state->transition();		//1
+                transitionTo( next_state );			//2
+                curr_state->action();				//3
+                outputDebugString();				//4
             }
         }
 
