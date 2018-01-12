@@ -11,7 +11,6 @@
 #include <iostream>
 #include "Error.h"
 #include "Globals.h"
-#include "IOTable.h"
 
 class StateMachine; //a little forward declaration to handle order of include problems
 
@@ -45,9 +44,6 @@ class State
             }
             return success;
         }
-
-        IOTable &getInputs();
-        IOTable &getOutputs();
 
     protected:
         StateMachine *owner;

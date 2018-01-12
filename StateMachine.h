@@ -6,15 +6,13 @@
 #include "State.h"
 #include "Error.h"
 #include "Globals.h"
-#include "IOTable.h"
 
 class StateMachine
 {
     friend class State;
     public:
-        StateMachine() : curr_state_identifier(INVALID_STATE_NAME),
-                         inputs(IOTable( INPUT_TABLE )),
-                         outputs(IOTable( OUTPUT_TABLE )) {}
+        StateMachine() : curr_state_identifier(INVALID_STATE_NAME) {}
+
         /*
          * 1.) action()
          * 2.) debugMessaging()
@@ -68,24 +66,6 @@ class StateMachine
             return success;
         }
 
-        virtual bool addInput( std::string key, IOType *input )
-        {
-            bool success = false;
-
-            if( inputs.addElement( key, input ) )
-                success = true;
-            return success;
-        }
-
-        IOType *getOutput( std::string key )
-        {
-            IOType *output_to_return = 0;
-
-            output_to_return = outputs.getIO( key );
-
-            return output_to_return;
-        }
-
 
         std::string getCurrentIdentifier()
         {
@@ -118,8 +98,6 @@ class StateMachine
         {
             std::cout << curr_state->debugString() << std::endl;
         }
-        IOTable				 inputs;
-        IOTable				 outputs;
 
     private:
         State 				*curr_state;
