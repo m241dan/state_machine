@@ -26,7 +26,7 @@ class StateMachine
         {
             if( getCurrentIdentifier() != INVALID_STATE_NAME && curr_state != 0 )
             {
-                if( !curr_state->owner )
+                if( curr_state->validOwner() )
                 {
                     std::string next_state = INVALID_STATE_NAME;	//assume nothing
                     next_state = curr_state->transition();		//1

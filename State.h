@@ -37,6 +37,13 @@ class State
         virtual void 		onExit( std::string next_state ) {}
         virtual std::string 	debugString() { return ""; }
         virtual std::string	getIdentifier() { return state_identifier; }
+        virtual bool		validOwner()
+        {
+            bool success = false;
+            if( owner )
+                success = true;
+            return success;
+        }
         virtual bool		setOwner( StateMachine *sm )
         {
             bool success = false;
