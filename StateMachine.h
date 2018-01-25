@@ -26,11 +26,16 @@ class StateMachine
         {
             if( getCurrentIdentifier() != INVALID_STATE_NAME && curr_state != 0 )
             {
-                std::string next_state = INVALID_STATE_NAME;	//assume nothing
-                next_state = curr_state->transition();		//1
-                transitionTo( next_state );			//2
-                curr_state->action();				//3
-                outputDebugString();				//4
+                if( !curr_state->owner )
+                {
+                    std::string next_state = INVALID_STATE_NAME;	//assume nothing
+                    next_state = curr_state->transition();		//1
+                    transitionTo( next_state );				//2
+                    curr_state->action();				//3
+                    outputDebugString();				//4
+                }
+                else
+                    messaging::errorMsg( __func__, "attempting to run a state without an owner." );
             }
         }
 

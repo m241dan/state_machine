@@ -25,6 +25,10 @@ class State
                 messaging::errorMsg( __func__, "created a state with an invalid state name." );
             owner = 0;
         }
+        ~State()
+        {
+            owner = 0;
+        }
 
         //virtual functions
         virtual void 		action( void ) {}
