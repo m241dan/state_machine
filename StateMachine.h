@@ -26,7 +26,7 @@ class StateMachine
         {
             if( getCurrentIdentifier() != INVALID_STATE_NAME && curr_state != 0 )
             {
-                if( !curr_state->owner )
+                if( curr_state && curr_state->validOwner() )
                 {
                     runAddonsPre();
                     std::string next_state = INVALID_STATE_NAME;	//assume nothing
@@ -37,7 +37,7 @@ class StateMachine
                     runAddonsPost();
                 }
                 else
-                    messaging::errorMsg( __func__, "attempting to run a state without an owner." );
+                    messaging::errorMsg( __func__, "attempting to run null state or a state without an owner." );
             }
         }
 
