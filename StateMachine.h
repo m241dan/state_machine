@@ -26,16 +26,18 @@ class StateMachine
         {
             if( getCurrentIdentifier() != INVALID_STATE_NAME && curr_state != 0 )
             {
-                if( curr_state->validOwner() )
+                if( curr_state && curr_state->validOwner() )
                 {
+                    runAddonsPre();
                     std::string next_state = INVALID_STATE_NAME;	//assume nothing
                     next_state = curr_state->transition();		//1
                     transitionTo( next_state );				//2
                     curr_state->action();				//3
                     outputDebugString();				//4
+                    runAddonsPost();
                 }
                 else
-                    messaging::errorMsg( __func__, "attempting to run a state without an owner." );
+                    messaging::errorMsg( __func__, "attempting to run null state or a state without an owner." );
             }
         }
 
@@ -78,6 +80,8 @@ class StateMachine
         }
 
     protected:
+        virtual void runAddonsPre() {}
+        virtual void runAddonsPost() {}
         virtual void transitionTo( std::string next_state )
         {
             if( curr_state_identifier != next_state )
