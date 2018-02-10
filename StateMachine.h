@@ -105,7 +105,8 @@ class StateMachine
         }
         virtual void outputDebugString()
         {
-            std::cout << curr_state->debugString() << std::endl;
+            if( curr_state->debugString() != "" )
+                std::cout << curr_state->debugString() << std::endl;
         }
 
     private:
